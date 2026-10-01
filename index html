@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Space Explorer 🚀</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* STARS */
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(#8ea7ff 1px, transparent 1px);
+    background-size:80px 80px,130px 130px;
+    background-position:0 0,40px 60px;
+    opacity:.45;
+    animation:moveStars 25s linear infinite;
+}
+
+@keyframes moveStars{
+    from{background-position:0 0,40px 60px;}
+    to{background-position:500px 800px,600px 900px;}
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(5,8,22,.8);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,.1);
+    z-index:1000;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#65a8ff;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:28px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#69a8ff;
+}
+
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 70px;
+}
+
+.hero-content{
+    max-width:850px;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 18px;
+    border:1px solid #477cff;
+    border-radius:30px;
+    color:#8bb5ff;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:clamp(45px,8vw,90px);
+    line-height:1;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#64a7ff;
+}
+
+.hero p{
+    color:#b8c2d9;
+    font-size:18px;
+    line-height:1.7;
+    max-width:650px;
+    margin:auto;
+}
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 25px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+    border:none;
+    transition:.3s;
+}
+
+.primary{
+    background:#477cff;
+    color:white;
+}
+
+.secondary{
+    background:transparent;
+    color:white;
+    border:1px solid #52617e;
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+}
+
+/* PLANET */
+.planet{
+    width:230px;
+    height:230px;
+    margin:70px auto 0;
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 30% 30%,#b8d8ff,#4a73db 45%,#17285d 75%);
+    box-shadow:
+        0 0 40px #315eff,
+        0 0 100px rgba(60,100,255,.4);
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-20px);}
+}
+
+/* SECTIONS */
+section{
+    padding:100px 7%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.section-subtitle{
+    text-align:center;
+    color:#9da9c2;
+    margin-bottom:55px;
+}
+
+/* CARDS */
+.cards{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:rgba(18,25,52,.75);
+    border:1px solid rgba(130,155,255,.15);
+    border-radius:20px;
+    padding:30px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#477cff;
+    box-shadow:0 10px 40px rgba(40,80,255,.15);
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:18px;
+}
+
+.card h3{
+    margin-bottom:12px;
+    font-size:23px;
+}
+
+.card p{
+    color:#9faac2;
+    line-height:1.6;
+}
+
+/* MISSIONS */
+.mission-box{
+    max-width:1000px;
+    margin:auto;
+    background:linear-gradient(135deg,rgba(24,35,72,.9),rgba(10,16,38,.9));
+    border-radius:25px;
+    padding:40px;
+    border:1px solid rgba(100,140,255,.2);
+}
+
+.mission{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:22px 0;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.mission:last-child{
+    border-bottom:none;
+}
+
+.mission h3{
+    margin-bottom:7px;
+}
+
+.mission p{
+    color:#9da9c2;
+}
+
+.status{
+    padding:8px 15px;
+    border-radius:20px;
+    font-size:13px;
+    white-space:nowrap;
+}
+
+.active{
+    background:rgba(40,200,120,.15);
+    color:#54e6a0;
+}
+
+.future{
+    background:rgba(100,130,255,.15);
+    color:#8daeff;
+}
+
+/* STATS */
+.stats{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+
+.stat{
+    text-align:center;
+    padding:30px;
+    background:#0d1430;
+    border-radius:20px;
+}
+
+.stat h2{
+    font-size:40px;
+    color:#6ba8ff;
+}
+
+.stat p{
+    color:#9ca8c0;
+    margin-top:8px;
+}
+
+/* SIMULATOR */
+.simulator{
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+    padding:45px;
+    background:#0d1430;
+    border-radius:25px;
+    border:1px solid rgba(100,140,255,.2);
+}
+
+#missionText{
+    font-size:20px;
+    min-height:55px;
+    margin:25px 0;
+    color:#c7d2eb;
+}
+
+.launch{
+    background:#477cff;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.launch:hover{
+    transform:scale(1.05);
+}
+
+/* CONTACT */
+.contact{
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+}
+
+.contact-box{
+    margin-top:30px;
+    padding:35px;
+    background:#0d1430;
+    border-radius:20px;
+}
+
+.contact-box input,
+.contact-box textarea{
+    width:100%;
+    margin-bottom:15px;
+    padding:14px;
+    background:#070c20;
+    color:white;
+    border:1px solid #26345b;
+    border-radius:10px;
+    outline:none;
+}
+
+.contact-box textarea{
+    height:120px;
+    resize:none;
+}
+
+.contact-box button{
+    width:100%;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:35px;
+    color:#75819c;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* MOBILE */
+@media(max-width:700px){
+    nav ul{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:50px;
+    }
+
+    .mission{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    section{
+        padding:75px 5%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="logo">🚀 <span>SPACE</span> EXPLORER</div>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#explore">Explore</a></li>
+        <li><a href="#missions">Missions</a></li>
+        <li><a href="#simulator">Simulator</a></li>
+    </ul>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            🌌 Welcome to the Universe
+        </div>
+
+        <h1>
+            Explore Beyond<br>
+            <span>the Stars.</span>
+        </h1>
+
+        <p>
+            Discover planets, stars, galaxies and mysterious worlds.
+            Start your journey through space and learn how humanity
+            explores the universe.
+        </p>
+
+        <div class="buttons">
+            <a href="#explore" class="btn primary">
+                Explore Space 🚀
+            </a>
+
+            <a href="#missions" class="btn secondary">
+                View Missions
+            </a>
+        </div>
+
+        <div class="planet"></div>
+
+    </div>
+
+</section>
+
+
+<!-- EXPLORE -->
+<section id="explore">
+
+    <h2 class="section-title">Explore the Universe</h2>
+
+    <p class="section-subtitle">
+        There is much more beyond our planet.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🌍</div>
+            <h3>Earth</h3>
+            <p>
+                Our home planet and the only known world
+                currently confirmed to support life.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🌕</div>
+            <h3>The Moon</h3>
+            <p>
+                Earth's natural satellite and a major
+                destination for human exploration.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔴</div>
+            <h3>Mars</h3>
+            <p>
+                A cold desert world that scientists study
+                for clues about its ancient environment.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🪐</div>
+            <h3>Saturn</h3>
+            <p>
+                A giant planet famous for its spectacular
+                system of icy rings.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">⭐</div>
+            <h3>Stars</h3>
+            <p>
+                Huge astronomical objects powered by
+                nuclear fusion in their interiors.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🌌</div>
+            <h3>Galaxies</h3>
+            <p>
+                Enormous collections of stars, gas, dust
+                and dark matter held together by gravity.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MISSIONS -->
+<section id="missions">
+
+    <h2 class="section-title">Space Missions</h2>
+
+    <p class="section-subtitle">
+        Humanity continues to explore our cosmic neighborhood.
+    </p>
+
+    <div class="mission-box">
+
+        <div class="mission">
+            <div>
+                <h3>🌙 Lunar Exploration</h3>
+                <p>Studying Earth's Moon and its environment.</p>
+            </div>
+
+            <span class="status active">ACTIVE</span>
+        </div>
+
+        <div class="mission">
+            <div>
+                <h3>🔴 Mars Exploration</h3>
+                <p>Robotic spacecraft investigating the Red Planet.</p>
+            </div>
+
+            <span class="status active">ACTIVE</span>
+        </div>
+
+        <div class="mission">
+            <div>
+                <h3>🛰️ Deep Space Research</h3>
+                <p>Observing objects far beyond Earth.</p>
+            </div>
+
+            <span class="status active">RESEARCH</span>
+        </div>
+
+        <div class="mission">
+            <div>
+                <h3>🚀 Future Exploration</h3>
+                <p>Future human and robotic exploration concepts.</p>
+            </div>
+
+            <span class="status future">FUTURE</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+<section>
+
+    <h2 class="section-title">The Cosmic Scale</h2>
+
+    <p class="section-subtitle">
+        Space is unimaginably large.
+    </p>
+
+    <div class="stats">
+
+        <div class="stat">
+            <h2>8</h2>
+            <p>Planets in our Solar System</p>
+        </div>
+
+        <div class="stat">
+            <h2>1</h2>
+            <p>Known habitable world</p>
+        </div>
+
+        <div class="stat">
+            <h2>∞</h2>
+            <p>Questions to explore</p>
+        </div>
+
+        <div class="stat">
+            <h2>🚀</h2>
+            <p>Human curiosity</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SIMULATOR -->
+<section id="simulator">
+
+    <h2 class="section-title">Mission Simulator</h2>
+
+    <p class="section-subtitle">
+        Press the button and receive a random mission.
+    </p>
+
+    <div class="simulator">
+
+        <div style="font-size:60px;">
+            🚀
+        </div>
+
+        <h2>Mission Control</h2>
+
+        <div id="missionText">
+            Waiting for mission command...
+        </div>
+
+        <button class="launch" onclick="launchMission()">
+            START MISSION
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section>
+
+    <h2 class="section-title">Join the Explorer Team</h2>
+
+    <p class="section-subtitle">
+        Create your own space-themed profile.
+    </p>
+
+    <div class="contact">
+
+        <div class="contact-box">
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Your name"
+            >
+
+            <input
+                type="email"
+                placeholder="Your email"
+            >
+
+            <textarea
+                placeholder="Write your space dream..."
+            ></textarea>
+
+            <button class="btn primary" onclick="sendMessage()">
+                Send Message 🚀
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p>
+        🚀 Space Explorer © 2026
+    </p>
+
+    <p style="margin-top:10px;">
+        Built with HTML, CSS & JavaScript
+    </p>
+
+</footer>
+
+
+<script>
+
+const missions = [
+
+    "🚀 Mission 01: Scan the surface of Mars.",
+
+    "🌕 Mission 02: Map an unknown lunar region.",
+
+    "🪐 Mission 03: Study Saturn's rings.",
+
+    "⭐ Mission 04: Observe a distant star.",
+
+    "🌌 Mission 05: Search for a new galaxy.",
+
+    "🔭 Mission 06: Observe a mysterious cosmic object.",
+
+    "🛰️ Mission 07: Deploy a research satellite."
+
+];
+
+function launchMission(){
+
+    const text =
+        document.getElementById("missionText");
+
+    const random =
+        Math.floor(Math.random() * missions.length);
+
+    text.innerHTML = missions[random];
+
+}
+
+
+function sendMessage(){
+
+    const name =
+        document.getElementById("name").value;
+
+    if(name.trim() === ""){
+
+        alert("Please enter your name 🚀");
+
+    }else{
+
+        alert(
+            "Welcome to the Explorer Team, "
+            + name
+            + "! 🌌"
+        );
+
+    }
+
+}
+
+
+/* LITTLE WELCOME EFFECT */
+
+window.addEventListener("load", function(){
+
+    console.log(
+        "🚀 Space Explorer system initialized."
+    );
+
+});
+
+</script>
+
+</body>
+</html>
