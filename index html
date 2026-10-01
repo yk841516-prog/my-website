@@ -3,403 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Space Explorer 🚀</title>
+<title>Turbo Road Racer</title>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
 }
 
 body{
-    background:#050816;
+    background:#080808;
     color:white;
-    overflow-x:hidden;
-}
-
-/* STARS */
-.stars{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-1;
-    background-image:
-        radial-gradient(white 1px, transparent 1px),
-        radial-gradient(#8ea7ff 1px, transparent 1px);
-    background-size:80px 80px,130px 130px;
-    background-position:0 0,40px 60px;
-    opacity:.45;
-    animation:moveStars 25s linear infinite;
-}
-
-@keyframes moveStars{
-    from{background-position:0 0,40px 60px;}
-    to{background-position:500px 800px,600px 900px;}
-}
-
-/* NAVBAR */
-nav{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    padding:18px 7%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:rgba(5,8,22,.8);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(255,255,255,.1);
-    z-index:1000;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#65a8ff;
-}
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:28px;
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    transition:.3s;
-}
-
-nav a:hover{
-    color:#69a8ff;
-}
-
-/* HERO */
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    font-family:Arial,sans-serif;
     text-align:center;
-    padding:120px 20px 70px;
+    overflow:hidden;
 }
 
-.hero-content{
-    max-width:850px;
+h1{
+    margin:15px 0 5px;
+    font-size:32px;
 }
 
-.badge{
-    display:inline-block;
-    padding:8px 18px;
-    border:1px solid #477cff;
-    border-radius:30px;
-    color:#8bb5ff;
-    margin-bottom:25px;
-}
-
-.hero h1{
-    font-size:clamp(45px,8vw,90px);
-    line-height:1;
-    margin-bottom:25px;
-}
-
-.hero h1 span{
-    color:#64a7ff;
-}
-
-.hero p{
-    color:#b8c2d9;
+.info{
+    display:flex;
+    justify-content:center;
+    gap:35px;
+    margin:10px;
     font-size:18px;
-    line-height:1.7;
-    max-width:650px;
+}
+
+.game{
+    position:relative;
+    width:400px;
+    height:650px;
+    max-width:95vw;
     margin:auto;
+    overflow:hidden;
+    background:#333;
+    border-left:7px solid #777;
+    border-right:7px solid #777;
 }
 
-.buttons{
-    margin-top:35px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
+/* ROAD */
+
+.road{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#292929;
 }
 
-.btn{
-    padding:14px 25px;
-    border-radius:30px;
-    text-decoration:none;
-    font-weight:bold;
-    cursor:pointer;
-    border:none;
-    transition:.3s;
+.line{
+    position:absolute;
+    width:8px;
+    height:90px;
+    background:white;
+    left:50%;
+    transform:translateX(-50%);
+    box-shadow:0 140px white,0 280px white,0 420px white,
+               0 560px white;
+    top:-100px;
 }
 
-.primary{
-    background:#477cff;
-    color:white;
+.roadLine2{
+    position:absolute;
+    width:8px;
+    height:90px;
+    background:white;
+    left:33%;
+    opacity:.8;
 }
 
-.secondary{
-    background:transparent;
-    color:white;
-    border:1px solid #52617e;
+.roadLine3{
+    position:absolute;
+    width:8px;
+    height:90px;
+    background:white;
+    left:66%;
+    opacity:.8;
 }
 
-.btn:hover{
-    transform:translateY(-4px);
+/* PLAYER */
+
+.car{
+    position:absolute;
+    width:55px;
+    height:95px;
+    bottom:35px;
+    left:172px;
+    background:#e63946;
+    border-radius:14px 14px 8px 8px;
+    box-shadow:0 0 20px rgba(255,50,50,.5);
+    z-index:5;
 }
 
-/* PLANET */
-.planet{
-    width:230px;
-    height:230px;
-    margin:70px auto 0;
+.car:before{
+    content:"";
+    position:absolute;
+    width:38px;
+    height:35px;
+    background:#80d8ff;
+    left:8px;
+    top:13px;
+    border-radius:8px;
+}
+
+.car:after{
+    content:"";
+    position:absolute;
+    width:43px;
+    height:8px;
+    background:#222;
+    left:6px;
+    bottom:18px;
+    border-radius:5px;
+}
+
+.wheel{
+    position:absolute;
+    width:9px;
+    height:25px;
+    background:#111;
+    border-radius:5px;
+}
+
+.w1{left:-7px;top:18px}
+.w2{right:-7px;top:18px}
+.w3{left:-7px;bottom:18px}
+.w4{right:-7px;bottom:18px}
+
+/* ENEMY */
+
+.enemy{
+    position:absolute;
+    width:55px;
+    height:95px;
+    background:#3978ff;
+    border-radius:14px 14px 8px 8px;
+    top:-120px;
+    z-index:4;
+}
+
+.enemy:before{
+    content:"";
+    position:absolute;
+    width:38px;
+    height:35px;
+    background:#222;
+    left:8px;
+    top:13px;
+    border-radius:8px;
+}
+
+/* COIN */
+
+.coin{
+    position:absolute;
+    width:30px;
+    height:30px;
     border-radius:50%;
-    background:
-        radial-gradient(circle at 30% 30%,#b8d8ff,#4a73db 45%,#17285d 75%);
-    box-shadow:
-        0 0 40px #315eff,
-        0 0 100px rgba(60,100,255,.4);
-    animation:float 4s ease-in-out infinite;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-20px);}
-}
-
-/* SECTIONS */
-section{
-    padding:100px 7%;
-}
-
-.section-title{
-    text-align:center;
-    font-size:42px;
-    margin-bottom:15px;
-}
-
-.section-subtitle{
-    text-align:center;
-    color:#9da9c2;
-    margin-bottom:55px;
-}
-
-/* CARDS */
-.cards{
-    max-width:1100px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:25px;
-}
-
-.card{
-    background:rgba(18,25,52,.75);
-    border:1px solid rgba(130,155,255,.15);
-    border-radius:20px;
-    padding:30px;
-    transition:.3s;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    border-color:#477cff;
-    box-shadow:0 10px 40px rgba(40,80,255,.15);
-}
-
-.icon{
-    font-size:45px;
-    margin-bottom:18px;
-}
-
-.card h3{
-    margin-bottom:12px;
-    font-size:23px;
-}
-
-.card p{
-    color:#9faac2;
-    line-height:1.6;
-}
-
-/* MISSIONS */
-.mission-box{
-    max-width:1000px;
-    margin:auto;
-    background:linear-gradient(135deg,rgba(24,35,72,.9),rgba(10,16,38,.9));
-    border-radius:25px;
-    padding:40px;
-    border:1px solid rgba(100,140,255,.2);
-}
-
-.mission{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    padding:22px 0;
-    border-bottom:1px solid rgba(255,255,255,.1);
-}
-
-.mission:last-child{
-    border-bottom:none;
-}
-
-.mission h3{
-    margin-bottom:7px;
-}
-
-.mission p{
-    color:#9da9c2;
-}
-
-.status{
-    padding:8px 15px;
-    border-radius:20px;
-    font-size:13px;
-    white-space:nowrap;
-}
-
-.active{
-    background:rgba(40,200,120,.15);
-    color:#54e6a0;
-}
-
-.future{
-    background:rgba(100,130,255,.15);
-    color:#8daeff;
-}
-
-/* STATS */
-.stats{
-    max-width:1000px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-}
-
-.stat{
-    text-align:center;
-    padding:30px;
-    background:#0d1430;
-    border-radius:20px;
-}
-
-.stat h2{
-    font-size:40px;
-    color:#6ba8ff;
-}
-
-.stat p{
-    color:#9ca8c0;
-    margin-top:8px;
-}
-
-/* SIMULATOR */
-.simulator{
-    max-width:700px;
-    margin:auto;
-    text-align:center;
-    padding:45px;
-    background:#0d1430;
-    border-radius:25px;
-    border:1px solid rgba(100,140,255,.2);
-}
-
-#missionText{
-    font-size:20px;
-    min-height:55px;
-    margin:25px 0;
-    color:#c7d2eb;
-}
-
-.launch{
-    background:#477cff;
-    color:white;
-    border:none;
-    padding:15px 30px;
-    border-radius:30px;
-    cursor:pointer;
-    font-size:16px;
+    background:gold;
+    color:#9a6500;
     font-weight:bold;
+    line-height:30px;
+    top:-50px;
+    z-index:3;
 }
 
-.launch:hover{
-    transform:scale(1.05);
+/* GAME OVER */
+
+.gameOver{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    z-index:20;
 }
 
-/* CONTACT */
-.contact{
-    max-width:700px;
-    margin:auto;
-    text-align:center;
-}
-
-.contact-box{
-    margin-top:30px;
-    padding:35px;
-    background:#0d1430;
-    border-radius:20px;
-}
-
-.contact-box input,
-.contact-box textarea{
-    width:100%;
+.gameOver h2{
+    font-size:45px;
+    color:#ff4b4b;
     margin-bottom:15px;
-    padding:14px;
-    background:#070c20;
+}
+
+.gameOver p{
+    font-size:20px;
+    margin-bottom:25px;
+}
+
+button{
+    border:none;
+    padding:14px 28px;
+    border-radius:25px;
+    background:#ff3b3b;
     color:white;
-    border:1px solid #26345b;
-    border-radius:10px;
-    outline:none;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.contact-box textarea{
-    height:120px;
-    resize:none;
+button:hover{
+    transform:scale(1.06);
 }
 
-.contact-box button{
-    width:100%;
+.controls{
+    margin-top:12px;
+    color:#aaa;
 }
 
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:35px;
-    color:#75819c;
-    border-top:1px solid rgba(255,255,255,.08);
-}
-
-/* MOBILE */
-@media(max-width:700px){
-    nav ul{
-        display:none;
-    }
-
-    .hero h1{
-        font-size:50px;
-    }
-
-    .mission{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    section{
-        padding:75px 5%;
+@media(max-height:750px){
+    .game{
+        height:570px;
     }
 }
 </style>
@@ -407,365 +225,291 @@ footer{
 
 <body>
 
-<div class="stars"></div>
+<h1>🏎️ TURBO ROAD RACER</h1>
 
-<!-- NAVIGATION -->
-<nav>
-    <div class="logo">🚀 <span>SPACE</span> EXPLORER</div>
+<div class="info">
+    <div>Score: <b id="score">0</b></div>
+    <div>Speed: <b id="speed">1</b></div>
+</div>
 
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#explore">Explore</a></li>
-        <li><a href="#missions">Missions</a></li>
-        <li><a href="#simulator">Simulator</a></li>
-    </ul>
-</nav>
+<div class="game" id="game">
 
+    <div class="road"></div>
 
-<!-- HERO -->
-<section class="hero" id="home">
+    <div class="line" id="roadLine"></div>
 
-    <div class="hero-content">
-
-        <div class="badge">
-            🌌 Welcome to the Universe
-        </div>
-
-        <h1>
-            Explore Beyond<br>
-            <span>the Stars.</span>
-        </h1>
-
-        <p>
-            Discover planets, stars, galaxies and mysterious worlds.
-            Start your journey through space and learn how humanity
-            explores the universe.
-        </p>
-
-        <div class="buttons">
-            <a href="#explore" class="btn primary">
-                Explore Space 🚀
-            </a>
-
-            <a href="#missions" class="btn secondary">
-                View Missions
-            </a>
-        </div>
-
-        <div class="planet"></div>
-
+    <div class="car" id="player">
+        <div class="wheel w1"></div>
+        <div class="wheel w2"></div>
+        <div class="wheel w3"></div>
+        <div class="wheel w4"></div>
     </div>
 
-</section>
+    <div class="enemy" id="enemy"></div>
 
+    <div class="coin" id="coin">$</div>
 
-<!-- EXPLORE -->
-<section id="explore">
+    <div class="gameOver" id="gameOver">
 
-    <h2 class="section-title">Explore the Universe</h2>
+        <h2>GAME OVER</h2>
 
-    <p class="section-subtitle">
-        There is much more beyond our planet.
-    </p>
+        <p>Your Score: <b id="finalScore">0</b></p>
 
-    <div class="cards">
-
-        <div class="card">
-            <div class="icon">🌍</div>
-            <h3>Earth</h3>
-            <p>
-                Our home planet and the only known world
-                currently confirmed to support life.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🌕</div>
-            <h3>The Moon</h3>
-            <p>
-                Earth's natural satellite and a major
-                destination for human exploration.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🔴</div>
-            <h3>Mars</h3>
-            <p>
-                A cold desert world that scientists study
-                for clues about its ancient environment.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🪐</div>
-            <h3>Saturn</h3>
-            <p>
-                A giant planet famous for its spectacular
-                system of icy rings.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">⭐</div>
-            <h3>Stars</h3>
-            <p>
-                Huge astronomical objects powered by
-                nuclear fusion in their interiors.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🌌</div>
-            <h3>Galaxies</h3>
-            <p>
-                Enormous collections of stars, gas, dust
-                and dark matter held together by gravity.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- MISSIONS -->
-<section id="missions">
-
-    <h2 class="section-title">Space Missions</h2>
-
-    <p class="section-subtitle">
-        Humanity continues to explore our cosmic neighborhood.
-    </p>
-
-    <div class="mission-box">
-
-        <div class="mission">
-            <div>
-                <h3>🌙 Lunar Exploration</h3>
-                <p>Studying Earth's Moon and its environment.</p>
-            </div>
-
-            <span class="status active">ACTIVE</span>
-        </div>
-
-        <div class="mission">
-            <div>
-                <h3>🔴 Mars Exploration</h3>
-                <p>Robotic spacecraft investigating the Red Planet.</p>
-            </div>
-
-            <span class="status active">ACTIVE</span>
-        </div>
-
-        <div class="mission">
-            <div>
-                <h3>🛰️ Deep Space Research</h3>
-                <p>Observing objects far beyond Earth.</p>
-            </div>
-
-            <span class="status active">RESEARCH</span>
-        </div>
-
-        <div class="mission">
-            <div>
-                <h3>🚀 Future Exploration</h3>
-                <p>Future human and robotic exploration concepts.</p>
-            </div>
-
-            <span class="status future">FUTURE</span>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- STATS -->
-<section>
-
-    <h2 class="section-title">The Cosmic Scale</h2>
-
-    <p class="section-subtitle">
-        Space is unimaginably large.
-    </p>
-
-    <div class="stats">
-
-        <div class="stat">
-            <h2>8</h2>
-            <p>Planets in our Solar System</p>
-        </div>
-
-        <div class="stat">
-            <h2>1</h2>
-            <p>Known habitable world</p>
-        </div>
-
-        <div class="stat">
-            <h2>∞</h2>
-            <p>Questions to explore</p>
-        </div>
-
-        <div class="stat">
-            <h2>🚀</h2>
-            <p>Human curiosity</p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SIMULATOR -->
-<section id="simulator">
-
-    <h2 class="section-title">Mission Simulator</h2>
-
-    <p class="section-subtitle">
-        Press the button and receive a random mission.
-    </p>
-
-    <div class="simulator">
-
-        <div style="font-size:60px;">
-            🚀
-        </div>
-
-        <h2>Mission Control</h2>
-
-        <div id="missionText">
-            Waiting for mission command...
-        </div>
-
-        <button class="launch" onclick="launchMission()">
-            START MISSION
+        <button onclick="restartGame()">
+            PLAY AGAIN
         </button>
 
     </div>
 
-</section>
+</div>
 
-
-<!-- CONTACT -->
-<section>
-
-    <h2 class="section-title">Join the Explorer Team</h2>
-
-    <p class="section-subtitle">
-        Create your own space-themed profile.
-    </p>
-
-    <div class="contact">
-
-        <div class="contact-box">
-
-            <input
-                type="text"
-                id="name"
-                placeholder="Your name"
-            >
-
-            <input
-                type="email"
-                placeholder="Your email"
-            >
-
-            <textarea
-                placeholder="Write your space dream..."
-            ></textarea>
-
-            <button class="btn primary" onclick="sendMessage()">
-                Send Message 🚀
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FOOTER -->
-<footer>
-
-    <p>
-        🚀 Space Explorer © 2026
-    </p>
-
-    <p style="margin-top:10px;">
-        Built with HTML, CSS & JavaScript
-    </p>
-
-</footer>
+<div class="controls">
+    ⬅️ LEFT &nbsp;&nbsp; | &nbsp;&nbsp; RIGHT ➡️
+    <br>
+    <small>Use keyboard arrow keys</small>
+</div>
 
 
 <script>
 
-const missions = [
+const game = document.getElementById("game");
+const player = document.getElementById("player");
+const enemy = document.getElementById("enemy");
+const coin = document.getElementById("coin");
+const roadLine = document.getElementById("roadLine");
 
-    "🚀 Mission 01: Scan the surface of Mars.",
+const scoreText = document.getElementById("score");
+const speedText = document.getElementById("speed");
 
-    "🌕 Mission 02: Map an unknown lunar region.",
+const gameOverScreen = document.getElementById("gameOver");
+const finalScore = document.getElementById("finalScore");
 
-    "🪐 Mission 03: Study Saturn's rings.",
+let playerX = 172;
+let enemyY = -120;
+let coinY = -50;
 
-    "⭐ Mission 04: Observe a distant star.",
+let score = 0;
+let speed = 5;
 
-    "🌌 Mission 05: Search for a new galaxy.",
+let gameRunning = true;
 
-    "🔭 Mission 06: Observe a mysterious cosmic object.",
+let enemyX;
+let coinX;
 
-    "🛰️ Mission 07: Deploy a research satellite."
+function randomPosition(){
 
-];
-
-function launchMission(){
-
-    const text =
-        document.getElementById("missionText");
-
-    const random =
-        Math.floor(Math.random() * missions.length);
-
-    text.innerHTML = missions[random];
+    return Math.floor(
+        Math.random() * (game.clientWidth - 70)
+    );
 
 }
 
+function resetEnemy(){
 
-function sendMessage(){
+    enemyY = -120;
+    enemyX = randomPosition();
 
-    const name =
-        document.getElementById("name").value;
+    enemy.style.left = enemyX + "px";
 
-    if(name.trim() === ""){
+}
 
-        alert("Please enter your name 🚀");
+function resetCoin(){
 
-    }else{
+    coinY = -50;
+    coinX = randomPosition();
 
-        alert(
-            "Welcome to the Explorer Team, "
-            + name
-            + "! 🌌"
-        );
+    coin.style.left = coinX + "px";
+
+}
+
+resetEnemy();
+resetCoin();
+
+
+document.addEventListener("keydown", function(e){
+
+    if(!gameRunning) return;
+
+    if(e.key === "ArrowLeft"){
+
+        playerX -= 25;
 
     }
 
+    if(e.key === "ArrowRight"){
+
+        playerX += 25;
+
+    }
+
+    if(playerX < 5){
+        playerX = 5;
+    }
+
+    if(playerX > game.clientWidth - 60){
+        playerX = game.clientWidth - 60;
+    }
+
+    player.style.left = playerX + "px";
+
+});
+
+
+function collision(a,b){
+
+    const r1 = a.getBoundingClientRect();
+    const r2 = b.getBoundingClientRect();
+
+    return !(
+        r1.bottom < r2.top ||
+        r1.top > r2.bottom ||
+        r1.right < r2.left ||
+        r1.left > r2.right
+    );
+
 }
 
 
-/* LITTLE WELCOME EFFECT */
+function gameLoop(){
 
-window.addEventListener("load", function(){
+    if(!gameRunning) return;
 
-    console.log(
-        "🚀 Space Explorer system initialized."
-    );
+    /* ROAD MOVEMENT */
 
-});
+    let currentTop =
+        parseInt(roadLine.style.top || "-100");
+
+    currentTop += speed;
+
+    if(currentTop > 50){
+        currentTop = -100;
+    }
+
+    roadLine.style.top = currentTop + "px";
+
+
+    /* ENEMY */
+
+    enemyY += speed;
+
+    enemy.style.top = enemyY + "px";
+
+    if(enemyY > game.clientHeight){
+
+        resetEnemy();
+
+        score += 10;
+
+    }
+
+
+    /* COIN */
+
+    coinY += speed;
+
+    coin.style.top = coinY + "px";
+
+    if(coinY > game.clientHeight){
+
+        resetCoin();
+
+    }
+
+
+    /* COLLISION */
+
+    if(collision(player,enemy)){
+
+        endGame();
+        return;
+
+    }
+
+
+    /* COIN COLLECTION */
+
+    if(collision(player,coin)){
+
+        score += 50;
+
+        resetCoin();
+
+    }
+
+
+    /* SCORE */
+
+    score += 0.02;
+
+    scoreText.textContent =
+        Math.floor(score);
+
+
+    /* SPEED */
+
+    if(score > 100){
+        speed = 6;
+    }
+
+    if(score > 250){
+        speed = 7;
+    }
+
+    if(score > 500){
+        speed = 9;
+    }
+
+    if(score > 800){
+        speed = 11;
+    }
+
+    speedText.textContent = speed - 4;
+
+
+    requestAnimationFrame(gameLoop);
+
+}
+
+
+function endGame(){
+
+    gameRunning = false;
+
+    finalScore.textContent =
+        Math.floor(score);
+
+    gameOverScreen.style.display =
+        "flex";
+
+}
+
+
+function restartGame(){
+
+    score = 0;
+    speed = 5;
+
+    playerX = 172;
+
+    player.style.left =
+        playerX + "px";
+
+    gameOverScreen.style.display =
+        "none";
+
+    gameRunning = true;
+
+    resetEnemy();
+    resetCoin();
+
+    gameLoop();
+
+}
+
+
+gameLoop();
 
 </script>
 
 </body>
-</html>
+</html>v
